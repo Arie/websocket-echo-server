@@ -1,9 +1,15 @@
 'use strict';
 
 const http = require('http');
+const https = require('https');
 const WebSocket = require('ws');
+const HttpsServer = http.createServer();
+const fs = require("fs");
 
-const server = http.createServer();
+server = HttpsServer({
+    cert: fs.readFileSync("./fullchain.pem"),
+    key: fs.readFileSync("./privkey.pem")
+})
 
 server.on('request', function request(req, res) {
   const body = http.STATUS_CODES[426];
